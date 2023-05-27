@@ -1,19 +1,19 @@
 import './App.css';
 import { useState, useEffect } from "react"
 import { connect } from "get-starknet"
-import contractAbi from "./abis/main_abi.json"
+import contractAbi from "./abis/spirit_stone"
 import { Contract } from "starknet"
-import { toBN } from "starknet/dist/utils/number"
-import { feltToString, stringToFelt } from './utils/utils'
+import { feltToString } from './utils/utils'
 
-const contractAddress = "0x049e5c0e9fbb072d7f908e77e117c76d026b8daf9720fe1d74fa3309645eabce"
+const contractAddress = "0x02d04cb0baacbc24f32534da4516e0cb4e47e9bb696a2f0b4ba01338878de064"
 
 function App() {
   const [provider, setProvider] = useState('')
   const [address, setAddress] = useState('')
-  const [name, setName] = useState('')
-  const [inputAddress, setInputAddress] = useState('')
-  const [retrievedName, setRetrievedName] = useState('')
+  const [availableMintCount, setAvailableMintCount] = useState(0)
+  const [blockReward, setBlockReward] = useState(0)
+  const [totalSupply, setTotalSupply] = useState(0)
+  const [mintCount, setMintCount] = useState(0)
   const [isConnected, setIsConnected] = useState(false)
 
   const connectWallet = async() => {
@@ -34,34 +34,38 @@ function App() {
     }
   }
 
-  const setNameFunction = async() => {
+  const mint = async() => {
     try{
       // initialize contract using abi, address and provider
       const contract = new Contract(contractAbi, contractAddress, provider)
-      // convert string to felt
-      const nameToFelt = stringToFelt(name)
       // make contract call
-      await contract.storeName(nameToFelt)
-      alert("You've successfully associated your name with this address!")
+      await contract.mint()
+      alert("You've send transaction to network, please wait for confirmation")
    }
    catch(error){
+      console.log(error)
       alert(error.message)
    } 
   }
 
-  const getNameFunction = async () => {
+  const updateTokenInfo = async () => {
     try {
       // initialize contract using abi, address and provider
       const contract = new Contract(contractAbi, contractAddress, provider)
+      const decimal = (await contract.call('decimals'))[0]
+      const factor = 10 ** decimal
       // make contract call
-      const _name = await contract.getName(inputAddress)
-      // convert resulting felt to string
-      const _decodedname = feltToString(toBN(_name.toString()))
-
-      // set decoded name to retrieveName state
-      setRetrievedName(_decodedname)
+      const availableMintCount = await contract.call('available_mint_count')
+      setAvailableMintCount(availableMintCount[0].toString())
+      const blockReward = (await contract.call('block_reward'))[0] / factor
+      setBlockReward(blockReward.toString())
+      const totalSupply = (await contract.call('totalSupply')) / factor
+      setTotalSupply(totalSupply.toString())
+      const mintCount = await contract.call('mint_count')
+      setMintCount(mintCount[0].toString())  
     }
     catch (error) {
+      console.log(error)
       alert(error.message)
     }
   }
@@ -71,7 +75,7 @@ function App() {
       <header className="App-header">
         <main className="main">
           <h1 className="title">
-            Starknet<a href="#"> ENS</a>
+            Starknet<a href="#"> Spirit Stone</a>
           </h1>
           {
             isConnected ? 
@@ -85,24 +89,23 @@ function App() {
 
           <div className="grid">
             <div href="#" className="card">
-              <h2>Ensure to connect to Alpha-goerli! &rarr;</h2>
-              <p>What name do you want?.</p>
+              <h2>Ensure to connect to Mainnet! &rarr;</h2>
+              <p>Input the address of receiver.</p>
 
               <div className="cardForm">
-                <input type="text" className="input" placeholder="Enter Name" onChange={(e) => setName(e.target.value)} />
-
-                <input type="submit" className="button" value="Store Name" onClick={() => setNameFunction()} />
+                <input type="submit" className="button" value="Mint" onClick={() => mint()} />
               </div>
 
               <hr />
 
-              <p>Insert a wallet address, to retrieve its name.</p>
+              <p>Token contract infomation.</p>
               <div className="cardForm">
-                <input type="text" className="input" placeholder="Enter Address" onChange={(e) => setInputAddress(e.target.value)} />
-
-                <input type="submit" className="button" value="Get Name" onClick={() => getNameFunction()} />
+                <input type="submit" className="button" value="Refresh" onClick={() => updateTokenInfo()} />
               </div>
-              <p>Name: {retrievedName}.eth</p>
+              <p>Available Mint Count: {availableMintCount}</p>
+              <p>Block Reward: {blockReward}</p>
+              <p>Total Supply: {totalSupply}</p>
+              <p>Mint Count: {mintCount}</p>
             </div>
           </div>
         </main>
