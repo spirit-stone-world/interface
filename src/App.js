@@ -82,51 +82,12 @@ function App() {
     }
   }
 
-  /*return (
-    <div className="App">
-      <header className="App-header">
-        <main className="main">
-          <h1 className="title">
-            <a href="#"> Spirit Stone</a>
-          </h1>
-          {
-            isConnected ? 
-            <button className="connect">{address.slice(0, 5)}...{address.slice(60)}</button> :
-            <button className="connect" onClick={() => connectWallet()}>Connect wallet</button>
-          }
-
-          <p className="description">
-            You can interact with token contract written in starknet cairo-1 contracts
-          </p>
-
-          <div className="grid">
-            <div href="#" className="card">
-              <h2>Ensure to connect to Mainnet! &rarr;</h2>
-              <p>Click mint to get tokens.</p>
-
-              <div className="cardForm">
-                <input type="submit" className="button" value="Mint" onClick={() => mint()} />
-              </div>
-
-              <hr />
-
-              <p>Token contract data. Update every 10s</p>
-              <p>Available Mint Count: {availableMintCount}</p>
-              <p>Block Reward: {blockReward}</p>
-              <p>Total Supply: {totalSupply}</p>
-              <p>Mint Count: {mintCount}</p>
-            </div>
-          </div>
-        </main>
-      </header>
-    </div>
-  );*/
   return (
     <div className="App">
       <header className="App-header">
         <main className="main">
           <h1 className="title">
-            <a href="https://yourwebsite.com"> Spirit Stone</a>  {/* Use actual link */}
+            <a href="https://spiritstone.world"> Spirit Stone</a>  {/* Use actual link */}
           </h1>
           {
             isConnected ?
@@ -165,7 +126,7 @@ function App() {
         </main>
       </header>
       <footer className="footer">
-        <a href="https://github.com/ccoincash/spirit_stone" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/spirit-stone-world/token-core" target="_blank" rel="noopener noreferrer">GitHub</a>
       </footer>
     </div>
   );
