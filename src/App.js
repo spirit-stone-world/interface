@@ -15,6 +15,19 @@ function App() {
   const [mintCount, setMintCount] = useState(0)
   const [isConnected, setIsConnected] = useState(false)
 
+  // Create interval on component mount and clear on component unmount
+  useEffect(() => {
+    if (!provider) return;  // If `provider` is not set, do nothing
+    updateTokenInfo();
+    const interval = setInterval(() => {
+      updateTokenInfo();
+    }, 10000);  // Updates every 10 seconds
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [provider]);  // Only re-run effect if `provider` changes
+
   const connectWallet = async() => {
     try{
       // allows a user to pick a wallet on button click
@@ -97,10 +110,7 @@ function App() {
 
               <hr />
 
-              <p>Token contract data.</p>
-              <div className="cardForm">
-                <input type="submit" className="button" value="Refresh" onClick={() => updateTokenInfo()} />
-              </div>
+              <p>Token contract data. Update every 10s</p>
               <p>Available Mint Count: {availableMintCount}</p>
               <p>Block Reward: {blockReward}</p>
               <p>Total Supply: {totalSupply}</p>
