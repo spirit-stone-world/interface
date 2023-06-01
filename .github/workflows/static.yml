@@ -43,5 +43,5 @@ jobs:
       with:
           folder: build # The folder the action should deploy.
           token: ${{ secrets.SPIRIT_STONE_DEPLOY_KEY }}
-          branch: gh-page # git branch deployed
+          branch: master # git branch deployed
           repository-name: spirit-stone-world/spirit-stone-world.github.io
