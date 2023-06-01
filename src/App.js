@@ -82,7 +82,7 @@ function App() {
     }
   }
 
-  return (
+  /*return (
     <div className="App">
       <header className="App-header">
         <main className="main">
@@ -119,6 +119,54 @@ function App() {
           </div>
         </main>
       </header>
+    </div>
+  );*/
+  return (
+    <div className="App">
+      <header className="App-header">
+        <main className="main">
+          <h1 className="title">
+            <a href="https://yourwebsite.com"> Spirit Stone</a>  {/* Use actual link */}
+          </h1>
+          {
+            isConnected ?
+              <button className="connect">{address.slice(0, 5)}...{address.slice(60)}</button> :
+              <button className="connect" onClick={() => connectWallet()}>Connect wallet</button>
+          }
+
+          <div className="description">
+            <p>Spirit Stone is an ERC-20 contract in Starknet, it features the following characteristics:</p>
+            <ul>
+              <li>There is no initial allocation, all tokens are generated through minting.</li>
+              <li>Anyone can call the mint function of the contract.</li>
+              <li>A block can be minted every 50 seconds.</li>
+              <li>The reward for each block is fixed and will be halved after every 400,000 blocks.</li>
+              <li>Minting will stop when the total number of tokens reaches 8,000,000,000.</li>
+            </ul>
+          </div>
+
+          <div className="grid">
+            <div className="card">
+              <h2>Mint Your Free Tokens Now</h2>
+              <div className="cardForm">
+                <input type="submit" className="button" value="Mint" onClick={() => mint()} />
+              </div>
+
+              <hr />
+
+              <h2>Token Stats:</h2>
+              <p>Available Mint Count: {availableMintCount}</p>
+              <p>Block Reward: {blockReward}</p>
+              <p>Total Supply: {totalSupply}</p>
+              <p>Mint Count: {mintCount}</p>
+
+            </div>
+          </div>
+        </main>
+      </header>
+      <footer className="footer">
+        <a href="https://github.com/ccoincash/spirit_stone" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </footer>
     </div>
   );
 }

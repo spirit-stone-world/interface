@@ -61,6 +61,18 @@
   font-size: 1.5rem;
 }
 
+.description ul {
+  list-style-type: disc; /* Use a bullet point for list item marker */
+  padding-left: 20px; /* Add left padding to indent the list */
+}
+
+.description li {
+  margin-bottom: 10px; /* Add some spacing between list items */
+  line-height: 1.6; /* Set line height to improve readability */
+  font-size: 1.2rem; /* Adjust font size */
+  text-align: left; /* Set text alignment */
+}
+
 .code {
   background: #fafafa;
   border-radius: 5px;
@@ -76,42 +88,42 @@
   justify-content: center;
   flex-wrap: wrap;
   max-width: 800px;
+  margin: 0 auto; /* center the grid */
 }
-
-/*.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 100%;
-}*/
 
 .card {
   margin: 1rem;
-  padding: 2rem; 
+  padding: 2rem;
   text-align: left;
   color: inherit;
   text-decoration: none;
-  border: 1px solid #eaeaea;
+  border: 1px solid #444444;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  background-color: #1a1a1a;  /* Change card background color to a slightly lighter grey */
+  background-color: #1a1a1a;
   max-width: 100%;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* add some shadow */
 }
 
 .card h2 {
   margin: 0 0 1rem 0;
   font-size: 1.5rem;
+  color: #f56342; /* add some color to draw attention */
 }
 
 .card p {
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.5;
+  color: #ddd; /* lighter text color */
+}
+
+.feedback p {
+  color: #aaa; /* lighter text color */
+}
+
+.feedback a {
+  color: #f56342; /* use the same color as the mint button */
 }
 
 .logo {
@@ -149,6 +161,11 @@
   border-radius: 7px;
   color: white;
   cursor: pointer;
+  transition: background 0.3s ease; /* Added transition for a smoother color change */
+}
+
+.button:hover {
+  background: #e45232; /* Darken the button color slightly when hovered */
 }
 
 .connect {
@@ -160,4 +177,31 @@
   border-radius: 7px;
   color: white;
   cursor: pointer;
+  transition: background 0.3s ease; /* Added transition for a smoother color change */
+}
+
+.connect:hover {
+  background: #e45232; /* Darken the button color slightly when hovered */
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #1a1a1a; /* Use the same dark grey as in the dark theme */
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.footer a {
+  color: #f56342; /* Use the same orange as in the buttons */
+  text-decoration: none;
+}
+
+.footer a:hover,
+.footer a:focus,
+.footer a:active {
+  text-decoration: underline;
 }
