@@ -3,7 +3,6 @@ import { useState, useEffect } from "react"
 import { connect } from "get-starknet"
 import contractAbi from "./abis/spirit_stone"
 import { Contract } from "starknet"
-import { feltToString } from './utils/utils'
 
 const contractAddress = "0x02d04cb0baacbc24f32534da4516e0cb4e47e9bb696a2f0b4ba01338878de064"
 
@@ -75,7 +74,7 @@ function App() {
       <header className="App-header">
         <main className="main">
           <h1 className="title">
-            Starknet<a href="#"> Spirit Stone</a>
+            <a href="#"> Spirit Stone</a>
           </h1>
           {
             isConnected ? 
@@ -84,13 +83,13 @@ function App() {
           }
 
           <p className="description">
-            This demo app demonstrates the use of starknet.js to interact with starknet contracts
+            You can interact with token contract written in starknet cairo-1 contracts
           </p>
 
           <div className="grid">
             <div href="#" className="card">
               <h2>Ensure to connect to Mainnet! &rarr;</h2>
-              <p>Input the address of receiver.</p>
+              <p>Click mint to get tokens.</p>
 
               <div className="cardForm">
                 <input type="submit" className="button" value="Mint" onClick={() => mint()} />
@@ -98,7 +97,7 @@ function App() {
 
               <hr />
 
-              <p>Token contract infomation.</p>
+              <p>Token contract data.</p>
               <div className="cardForm">
                 <input type="submit" className="button" value="Refresh" onClick={() => updateTokenInfo()} />
               </div>
