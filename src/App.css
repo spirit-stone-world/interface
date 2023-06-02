@@ -7,6 +7,22 @@
   color: #f0f0f0;  /* Change text color to a light grey */
 }
 
+/* Add this to your CSS */
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-title h1 {
+  text-align: left;
+}
+
+.connect {
+  margin-right: 1px;
+}
+
+
 /* keyframes for changing the body background color */
 @keyframes gradientBG {
   0% {
@@ -47,7 +63,7 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+  font-size: 2rem;
 }
 
 .title,
@@ -103,6 +119,7 @@
   background-color: #1a1a1a;
   max-width: 100%;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* add some shadow */
+  margin-bottom: 5rem;
 }
 
 .card h2 {
@@ -127,8 +144,8 @@
 }
 
 .logo {
-  height: 1em;
-  margin-left: 0.5rem;
+  height: 512px; /* Adjust as needed */
+  margin-top: 30px; /* Adjust as needed */
 }
 
 @media (max-width: 600px) {
@@ -140,6 +157,7 @@
 
 .cardForm {
   display: flex;
+  justify-content: center;
   margin: 2rem;
 }
 

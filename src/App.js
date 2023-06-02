@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from "react"
-import { connect } from "get-starknet"
+import { connect, disconnect } from "get-starknet"
 import contractAbi from "./abis/spirit_stone"
 import { Contract } from "starknet"
 
@@ -30,8 +30,9 @@ function App() {
 
   const connectWallet = async() => {
     try{
+      console.log('connect wallet')
       // allows a user to pick a wallet on button click
-      const starknet = await connect()
+      const starknet = await connect({modalMode: 'alwaysAsk', modalTheme: 'dark'})
       // connect to the wallet
       await starknet?.enable({ starknetVersion: "v4" })
       // set account provider to provider state
@@ -43,11 +44,30 @@ function App() {
     }
     catch(error){
       alert(error.message)
+      console.log(error)
+    }
+  }
+
+  const disconnectWallet = async() => {
+    try {
+      console.log('disconnect wallet')
+      await disconnect()
+      setProvider(null)
+      // set user address to address state
+      setAddress('')
+      // set connection status
+      setIsConnected(false) 
+    } catch(error) {
+      console.log(error)
     }
   }
 
   const mint = async() => {
     try{
+      if (isConnected == false) {
+        alert("not connect wallet yet")
+        return
+      }
       // initialize contract using abi, address and provider
       const contract = new Contract(contractAbi, contractAddress, provider)
       // make contract call
@@ -86,14 +106,19 @@ function App() {
     <div className="App">
       <header className="App-header">
         <main className="main">
-          <h1 className="title">
-            <a href="https://spiritstone.world"> Spirit Stone</a>  {/* Use actual link */}
-          </h1>
-          {
-            isConnected ?
-              <button className="connect">{address.slice(0, 5)}...{address.slice(60)}</button> :
-              <button className="connect" onClick={() => connectWallet()}>Connect wallet</button>
-          }
+          <div className="header-content">
+            <div className="logo-title">
+              <h1 className="title">
+                <a> Spirit Stone</a>
+              </h1>
+            </div>
+            {
+              isConnected ?
+                <button className="connect" onClick={() => disconnectWallet()}>{address.slice(0, 5)}...{address.slice(60)}</button> :
+                <button className="connect" onClick={() => connectWallet()}>Connect Wallet</button>
+            }
+          </div>
+          <img src="spirit_stone.jpg" className="logo" /> 
 
           <div className="description">
             <p>Spirit Stone is an ERC-20 contract in Starknet, it features the following characteristics:</p>
