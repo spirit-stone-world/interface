@@ -4,7 +4,7 @@ import { connect, disconnect } from "get-starknet"
 import contractAbi from "./abis/spirit_stone"
 import { Contract } from "starknet"
 
-const contractAddress = "0x02d04cb0baacbc24f32534da4516e0cb4e47e9bb696a2f0b4ba01338878de064"
+const contractAddress = "0x060cf64cf9edfc1b16ec903cee31a2c21680ee02fc778225dacee578c303806a"
 
 function App() {
   const [provider, setProvider] = useState('')
@@ -35,6 +35,12 @@ function App() {
       const starknet = await connect({modalMode: 'alwaysAsk', modalTheme: 'dark'})
       // connect to the wallet
       await starknet?.enable({ starknetVersion: "v4" })
+      // check if mainnet
+      if (starknet.provider.chainId !== '0x534e5f4d41494e') {
+        alert('You connect with wrong network, please swith to mainnet and connect again')
+        disconnectWallet()
+        return
+      }
       // set account provider to provider state
       setProvider(starknet.account)
       // set user address to address state
