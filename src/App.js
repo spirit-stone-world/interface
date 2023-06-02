@@ -99,9 +99,9 @@ function App() {
             <p>Spirit Stone is an ERC-20 contract in Starknet, it features the following characteristics:</p>
             <ul>
               <li>There is no initial allocation, all tokens are generated through minting.</li>
-              <li>Anyone can call the mint function of the contract.</li>
-              <li>A block can be minted every 50 seconds.</li>
-              <li>The reward for each block is fixed and will be halved after every 400,000 blocks.</li>
+              <li>Anyone can call the mint function of the contract for free.</li>
+              <li>A mint can be available every 50 seconds.</li>
+              <li>The reward for each mint is fixed and will be halved after every 400,000 mints.</li>
               <li>Minting will stop when the total number of tokens reaches 8,000,000,000.</li>
             </ul>
           </div>
@@ -117,7 +117,7 @@ function App() {
 
               <h2>Token Stats:</h2>
               <p>Available Mint Count: {availableMintCount}</p>
-              <p>Block Reward: {blockReward}</p>
+              <p>Mint Reward: {blockReward}</p>
               <p>Total Supply: {totalSupply}</p>
               <p>Mint Count: {mintCount}</p>
 
