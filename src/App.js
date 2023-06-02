@@ -147,6 +147,11 @@ function App() {
               <hr />
 
               <h2>Token Stats:</h2>
+              <p>Contract Address:&nbsp;
+                <a href={`https://starkscan.co/contract/${contractAddress}`} target="_blank" rel="noopener noreferrer">
+                  {contractAddress.slice(0, 5)}...{contractAddress.slice(60)}
+                </a>
+              </p>
               <p>Available Mint Count: {availableMintCount}</p>
               <p>Mint Reward: {blockReward}</p>
               <p>Total Supply: {totalSupply}</p>
