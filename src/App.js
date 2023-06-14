@@ -2,9 +2,11 @@ import './App.css';
 import { useState, useEffect } from "react"
 import { connect, disconnect } from "get-starknet"
 import contractAbi from "./abis/spirit_stone"
+import claimAbi from "./abis/whitelist"
 import { Contract } from "starknet"
 
-const contractAddress = "0x060cf64cf9edfc1b16ec903cee31a2c21680ee02fc778225dacee578c303806a"
+const contractAddress = "0x06182278e63816ff4080ed07d668f991df6773fd13db0ea10971096033411b11"
+const claimAddress = "0x00630eb5544172af8716956ff6b8f382b17b8d67f11bf1d8e9e7c8e10e31a2ac"
 
 function App() {
   const [provider, setProvider] = useState('')
@@ -13,6 +15,7 @@ function App() {
   const [blockReward, setBlockReward] = useState(0)
   const [totalSupply, setTotalSupply] = useState(0)
   const [mintCount, setMintCount] = useState(0)
+  const [claimCount, setClaimCount] = useState(0)
   const [isConnected, setIsConnected] = useState(false)
 
   // Create interval on component mount and clear on component unmount
@@ -68,7 +71,7 @@ function App() {
     }
   }
 
-  const mint = async() => {
+  const apply_mint = async() => {
     try{
       if (isConnected == false) {
         alert("not connect wallet yet")
@@ -77,7 +80,7 @@ function App() {
       // initialize contract using abi, address and provider
       const contract = new Contract(contractAbi, contractAddress, provider)
       // make contract call
-      await contract.mint()
+      await contract.apply_mint()
       alert("You've send transaction to network, please wait for confirmation")
    }
    catch(error){
@@ -86,21 +89,70 @@ function App() {
    } 
   }
 
+  const setTokenAddress = async() => {
+    try{
+      if (isConnected == false) {
+        alert("not connect wallet yet")
+        return
+      }
+      // initialize contract using abi, address and provider
+      const contract = new Contract(claimAbi, claimAddress, provider)
+      // make contract call
+      await contract.set_token_address(claimAddress)
+      alert("You've send transaction to network, please wait for confirmation")
+   }
+   catch(error){
+      console.log(error)
+      alert(error.message)
+   } 
+  }
+
+  const claim = async() => {
+    try{
+      if (isConnected == false) {
+        alert("not connect wallet yet")
+        return
+      }
+      // initialize contract using abi, address and provider
+      const contract = new Contract(claimAbi, claimAddress, provider)
+      // make contract call
+      await contract.claim()
+      alert("You've send transaction to network, please wait for confirmation")
+   }
+   catch(error){
+      console.log(error)
+      alert(error.message)
+   } 
+  }
+
+  const updateClaimInfo = async (factor) => {
+    try {
+      const contract = new Contract(claimAbi, claimAddress, provider)
+      const value = await contract.call('airdrop_amount', [address, ])
+      setClaimCount((value / factor).toString())
+    } catch (error) {
+      console.log(error)
+      //alert(error.message)
+    }
+  }
+
   const updateTokenInfo = async () => {
     try {
       // initialize contract using abi, address and provider
       const contract = new Contract(contractAbi, contractAddress, provider)
-      const decimal = (await contract.call('decimals'))[0]
-      const factor = 10 ** decimal
+      //const decimal = (await contract.call('decimals'))[0]
+      const factor = BigInt(10 ** 18)
       // make contract call
       const availableMintCount = await contract.call('available_mint_count')
-      setAvailableMintCount(availableMintCount[0].toString())
-      const blockReward = (await contract.call('block_reward'))[0] / factor
+      setAvailableMintCount(availableMintCount.toString())
+      const blockReward = (await contract.call('block_reward')) / factor
       setBlockReward(blockReward.toString())
       const totalSupply = (await contract.call('totalSupply')) / factor
       setTotalSupply(totalSupply.toString())
       const mintCount = await contract.call('mint_count')
-      setMintCount(mintCount[0].toString())  
+      setMintCount(mintCount.toString())  
+
+      await updateClaimInfo(factor)
     }
     catch (error) {
       console.log(error)
@@ -115,7 +167,7 @@ function App() {
           <div className="header-content">
             <div className="logo-title">
               <h1 className="title">
-                <a> Spirit Stone</a>
+                <a> Spirit Stone V2</a>
               </h1>
             </div>
             {
@@ -130,7 +182,7 @@ function App() {
             <p>Spirit Stone is an ERC-20 contract in Starknet, it features the following characteristics:</p>
             <ul>
               <li>There is no initial allocation, all tokens are generated through minting.</li>
-              <li>Anyone can call the mint function of the contract for free.</li>
+              <li>Anyone can call the apply_mint function of the contract for free.</li>
               <li>A mint can be available every 50 seconds.</li>
               <li>The reward for each mint is fixed and will be halved after every 400,000 mints.</li>
               <li>Minting will stop when the total number of tokens reaches 8,000,000,000.</li>
@@ -141,7 +193,7 @@ function App() {
             <div className="card">
               <h2>Mint Your Free Tokens Now</h2>
               <div className="cardForm">
-                <input type="submit" className="button" value="Mint" onClick={() => mint()} />
+                <input type="submit" className="button" value="Apply Mint" onClick={() => apply_mint()} />
               </div>
 
               <hr />
@@ -156,6 +208,13 @@ function App() {
               <p>Mint Reward: {blockReward}</p>
               <p>Total Supply: {totalSupply}</p>
               <p>Mint Count: {mintCount}</p>
+
+              <hr />
+              <h2> Token Claim:</h2>
+              <p>Can Claim: {claimCount}</p>
+              <div className="cardForm">
+                <input type="submit" className="button" value="Claim" onClick={() => claim()} />
+              </div>
 
             </div>
           </div>
