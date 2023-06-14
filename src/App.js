@@ -141,7 +141,7 @@ function App() {
       // initialize contract using abi, address and provider
       const contract = new Contract(contractAbi, contractAddress, provider)
       //const decimal = (await contract.call('decimals'))[0]
-      const factor = BigInt(10 ** 18)
+      const factor = BigInt(1000000000000000000)
       // make contract call
       const availableMintCount = await contract.call('available_mint_count')
       setAvailableMintCount(availableMintCount.toString())
