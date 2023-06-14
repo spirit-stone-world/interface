@@ -215,6 +215,7 @@ function App() {
               <div className="cardForm">
                 <input type="submit" className="button" value="Claim" onClick={() => claim()} />
               </div>
+              <p>Claim will be closed after UTC 2023-08-01 00:00:00</p>
 
             </div>
           </div>
