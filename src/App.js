@@ -187,6 +187,12 @@ function App() {
               <li>The reward for each mint is fixed and will be halved after every 400,000 mints.</li>
               <li>Minting will stop when the total number of tokens reaches 8,000,000,000.</li>
             </ul>
+            <p>How mint works:</p>
+            <ul>
+              <li>Users can apply to become a mint candidate. Each address can only succeed in applying once per mint.</li>
+              <li>The contract will randomly select an address from all candidate addresses</li>
+              <li>After each mint, all candidate addresses will be cleared, and the application process will start anew</li>
+            </ul>
           </div>
 
           <div className="grid">
