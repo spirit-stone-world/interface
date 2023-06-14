@@ -85,25 +85,7 @@ function App() {
    }
    catch(error){
       console.log(error)
-      //alert(error.message)
-   } 
-  }
-
-  const setTokenAddress = async() => {
-    try{
-      if (isConnected == false) {
-        alert("not connect wallet yet")
-        return
-      }
-      // initialize contract using abi, address and provider
-      const contract = new Contract(claimAbi, claimAddress, provider)
-      // make contract call
-      await contract.set_token_address(claimAddress)
-      alert("You've send transaction to network, please wait for confirmation")
-   }
-   catch(error){
-      console.log(error)
-      //alert(error.message)
+      alert(error.message)
    } 
   }
 
@@ -121,7 +103,7 @@ function App() {
    }
    catch(error){
       console.log(error)
-      //alert(error.message)
+      alert(error.message)
    } 
   }
 
