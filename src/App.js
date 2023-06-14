@@ -52,7 +52,7 @@ function App() {
       setIsConnected(true) 
     }
     catch(error){
-      alert(error.message)
+      //alert(error.message)
       console.log(error)
     }
   }
@@ -85,7 +85,7 @@ function App() {
    }
    catch(error){
       console.log(error)
-      alert(error.message)
+      //alert(error.message)
    } 
   }
 
@@ -103,7 +103,7 @@ function App() {
    }
    catch(error){
       console.log(error)
-      alert(error.message)
+      //alert(error.message)
    } 
   }
 
@@ -121,7 +121,7 @@ function App() {
    }
    catch(error){
       console.log(error)
-      alert(error.message)
+      //alert(error.message)
    } 
   }
 
@@ -156,7 +156,7 @@ function App() {
     }
     catch (error) {
       console.log(error)
-      alert(error.message)
+      //alert(error.message)
     }
   }
 
