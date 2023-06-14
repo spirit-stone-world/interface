@@ -128,7 +128,7 @@ function App() {
   const updateClaimInfo = async (factor) => {
     try {
       const contract = new Contract(claimAbi, claimAddress, provider)
-      const value = await contract.call('airdrop_amount', [address, ])
+      const value = Number(await contract.call('airdrop_amount', [address, ]))
       setClaimCount((value / factor).toString())
     } catch (error) {
       console.log(error)
@@ -141,13 +141,13 @@ function App() {
       // initialize contract using abi, address and provider
       const contract = new Contract(contractAbi, contractAddress, provider)
       //const decimal = (await contract.call('decimals'))[0]
-      const factor = BigInt(1000000000000000000)
+      const factor = 1000000000000000000
       // make contract call
       const availableMintCount = await contract.call('available_mint_count')
       setAvailableMintCount(availableMintCount.toString())
-      const blockReward = (await contract.call('block_reward')) / factor
+      const blockReward = Number(await contract.call('block_reward')) / factor
       setBlockReward(blockReward.toString())
-      const totalSupply = (await contract.call('totalSupply')) / factor
+      const totalSupply = Number(await contract.call('totalSupply')) / factor
       setTotalSupply(totalSupply.toString())
       const mintCount = await contract.call('mint_count')
       setMintCount(mintCount.toString())  
