@@ -221,7 +221,7 @@ function App() {
               <div className="cardForm">
                 <input type="submit" className="button" value="Claim" onClick={() => claim()} />
               </div>
-              <p>Claim will be closed after UTC 2023-08-01 00:00:00</p>
+              <p>Addresses with v1 tokens in block 77000 can claim the airdrop before UTC 2023-08-01 00:00:00.</p>
 
             </div>
           </div>
