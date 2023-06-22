@@ -16,6 +16,7 @@ function App() {
   const [totalSupply, setTotalSupply] = useState(0)
   const [mintCount, setMintCount] = useState(0)
   const [claimCount, setClaimCount] = useState(0)
+  const [halveTime, setHalveTime] = useState('')
   const [isConnected, setIsConnected] = useState(false)
 
   // Create interval on component mount and clear on component unmount
@@ -125,14 +126,23 @@ function App() {
       //const decimal = (await contract.call('decimals'))[0]
       const factor = 1000000000000000000
       // make contract call
-      const availableMintCount = await contract.call('available_mint_count')
-      setAvailableMintCount(availableMintCount.toString())
+      //const availableMintCount = await contract.call('available_mint_count')
+      //setAvailableMintCount(availableMintCount.toString())
       const blockReward = Number(await contract.call('block_reward')) / factor
       setBlockReward(blockReward.toString())
       const totalSupply = Number(await contract.call('totalSupply')) / factor
       setTotalSupply(totalSupply.toString())
       const mintCount = await contract.call('mint_count')
       setMintCount(mintCount.toString())  
+      //const isCandidate = await contract.call('is_mint_candidate', [address, ])
+      //console.log('isCandidate:', isCandidate)
+      //setIsCandidate(isCandidate ? 'Yes' : 'No')
+      const startTime = Number(await contract.call('start_time'))
+      const n = Math.floor(mintCount / 400000) + 1
+      const halveTime = startTime + 400000 * 50 * n
+      // show local time str
+      const localHavleTime = new Date(halveTime * 1000)
+      setHalveTime(localHavleTime.toLocaleString())
 
       await updateClaimInfo(factor)
     }
@@ -192,10 +202,10 @@ function App() {
                   {contractAddress.slice(0, 5)}...{contractAddress.slice(60)}
                 </a>
               </p>
-              <p>Available Mint Count: {availableMintCount}</p>
               <p>Mint Reward: {blockReward}</p>
               <p>Total Supply: {totalSupply}</p>
               <p>Mint Count: {mintCount}</p>
+              <p>Next Halving Date: {halveTime}</p>
 
               <hr />
               <h2> Token Claim:</h2>
