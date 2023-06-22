@@ -138,7 +138,7 @@ function App() {
       //console.log('isCandidate:', isCandidate)
       //setIsCandidate(isCandidate ? 'Yes' : 'No')
       const startTime = Number(await contract.call('start_time'))
-      const n = Math.floor(mintCount / 400000) + 1
+      const n = Math.floor(Number(mintCount) / 400000) + 1
       const halveTime = startTime + 400000 * 50 * n
       // show local time str
       const localHavleTime = new Date(halveTime * 1000)
