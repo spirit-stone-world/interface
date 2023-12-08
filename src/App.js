@@ -206,15 +206,6 @@ function App() {
               <p>Total Supply: {totalSupply}</p>
               <p>Mint Count: {mintCount}</p>
               <p>Next Halving Date: {halveTime}</p>
-
-              <hr />
-              <h2> Token Claim:</h2>
-              <p>Can Claim: {claimCount}</p>
-              <div className="cardForm">
-                <input type="submit" className="button" value="Claim" onClick={() => claim()} />
-              </div>
-              <p>Addresses with v1 tokens in block 77000 can claim the airdrop before UTC 2023-08-01 00:00:00.</p>
-
             </div>
           </div>
         </main>
